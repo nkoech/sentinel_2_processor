@@ -24,7 +24,7 @@ class DatabaseManager:
 
     def create_table(self):
         try:
-            self.cur.execute(config.CREATE_TABLE)
+            self.cur.execute(config.CREATE_TABLE_QUERY)
             self.conn.commit()
         except psycopg2.Error as e:
             print(f"An error occurred while creating the table: {e}")
@@ -35,7 +35,14 @@ class DatabaseManager:
             try:
                 self.cur.execute(
                     config.INSERT_VALUES_QUERY,
-                    (date.today(), value["min"], value["max"], value["mean"], value["median"], value["std"],),
+                    (
+                        date.today(),
+                        value["min"],
+                        value["max"],
+                        value["mean"],
+                        value["median"],
+                        value["std"],
+                    ),
                 )
                 self.conn.commit()
                 print(f"Values {value} inserted successfully.")

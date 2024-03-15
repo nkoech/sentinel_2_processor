@@ -7,10 +7,10 @@ import numpy as np
 from osgeo import gdal
 import rasterstats
 
-import database_manager as db_manager
-import config
-import file_io
 import compute_index as index
+import config
+import database_manager as db_manager
+import file_io
 
 
 @dataclass(frozen=True)
@@ -26,7 +26,9 @@ def print_metadata(input_dataset: gdal.Dataset):
     if metadata is None:
         raise RuntimeError("Could not read metadata")
     pprint.pprint(metadata)
-    pprint.pprint("======================= END OF METADATA PRINT =======================")
+    pprint.pprint(
+        "======================= END OF METADATA PRINT ======================="
+    )
 
 
 def get_subdataset_name(input_dataset: gdal.Dataset, resolution: str) -> gdal.Dataset:
