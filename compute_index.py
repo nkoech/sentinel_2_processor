@@ -14,3 +14,7 @@ def compute_index(band_1: np.ndarray, band_2: np.ndarray, no_data: float) -> np.
 
 def compute_ndvi(bands: Bands, no_data: float) -> np.ndarray:
     return compute_index(bands.nir, bands.red, no_data)
+
+
+def compute_ndwi(bands: Bands, no_data: float) -> np.ndarray:
+    return compute_index(bands.green, bands.nir, no_data)
