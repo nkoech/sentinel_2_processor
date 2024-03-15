@@ -5,6 +5,7 @@ import typing
 
 import numpy as np
 from osgeo import gdal
+import rasterstats
 
 import config
 import file_io
@@ -78,6 +79,18 @@ def compute_indices(
         )
         output_files.append(output_file)
     return output_files
+
+
+def compute_zonal_statistics(
+    input_files: typing.List[pathlib.Path], zone_file: pathlib.Path
+) -> typing.List[typing.List[typing.Dict[str, float]]]:
+    zonal_stats = []
+    for input_file in input_files:
+        stats = rasterstats.zonal_stats(
+            zone_file, str(input_file), stats=config.ZONAL_STATISTICS
+        )
+        zonal_stats.append(stats)
+    return zonal_stats
 
 
 def process_satellite_image():

@@ -10,7 +10,9 @@ import config
 def read_dataset(input_file: pathlib.Path) -> gdal.Dataset:
     if str(input_file).endswith(".SAFE"):
         zipped_file = str(config.INPUT_IMAGE).split("/")[-1] + ".zip"
-        raise RuntimeError(f"GDAL cannot read unzipped SAFE files. Please provide a file that ends with *.SAFE.zip similar to: {zipped_file}")
+        raise RuntimeError(
+            f"GDAL cannot read unzipped SAFE files. Please provide a file that ends with *.SAFE.zip similar to: {zipped_file}"
+        )
     dataset = gdal.Open(str(input_file))
     if dataset is None:
         raise RuntimeError(f"Could not open the file: {input_file}")
