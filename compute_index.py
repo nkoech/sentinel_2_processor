@@ -1,7 +1,7 @@
 import numpy as np
 
-
 from sentinel_2_processor import Bands
+
 
 def compute_index(band_1: np.ndarray, band_2: np.ndarray, no_data: float) -> np.ndarray:
     # Convert band to float so that floating point math is used.
