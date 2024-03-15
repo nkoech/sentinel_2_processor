@@ -33,3 +33,7 @@ CREATE_TABLE_QUERY = """
         std_dev FLOAT
     )
 """
+INSERT_VALUES_QUERY = """
+    INSERT INTO test_roi_tbl (image_date, min, max, mean, median, std_dev) 
+    VALUES (%s, %s, %s, %s, %s, %s)
+"""

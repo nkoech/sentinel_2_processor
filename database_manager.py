@@ -1,3 +1,6 @@
+from datetime import date
+import typing
+
 import psycopg2
 
 import config
@@ -26,3 +29,16 @@ class DatabaseManager:
         except psycopg2.Error as e:
             print(f"An error occurred while creating the table: {e}")
             self.conn.rollback()
+
+    def insert_values(self, values: typing.List[typing.Dict[str, float]]):
+        for value in values:
+            try:
+                self.cur.execute(
+                    config.INSERT_VALUES_QUERY,
+                    (date.today(), value["min"], value["max"], value["mean"], value["median"], value["std"],),
+                )
+                self.conn.commit()
+                print(f"Values {value} inserted successfully.")
+            except psycopg2.Error as e:
+                print(f"An error occurred while inserting the values: {e}")
+                self.conn.rollback()
