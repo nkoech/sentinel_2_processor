@@ -23,6 +23,12 @@ INDEX_OUTPUT_FILES = {
 }
 GDAL_DRIVER_NAME = "GTiff"
 ZONAL_STATISTICS = ["min", "max", "mean", "median", "std"]
+DB_CONN_PARAMS = {
+    "dbname": "zonal_statistics_db",
+    "user": "nkoech",
+    "password": "mypass",
+    "host": "localhost"
+}
 CREATE_TABLE_QUERY = """
     CREATE TABLE IF NOT EXISTS test_roi_tbl (
         image_date DATE,
