@@ -104,6 +104,7 @@ def process_satellite_image():
     test_roi_file = crop_dataset(sub_dataset_name, config.TEST_ROI_FILE, roi_extent)
     test_roi_dataset = file_io.read_dataset(test_roi_file)
     indices_files = compute_indices(test_roi_dataset, output_dir)
+    zone_stats = compute_zonal_statistics(indices_files, roi_geom)
 
 
 if __name__ == "__main__":
