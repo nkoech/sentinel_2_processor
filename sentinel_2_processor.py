@@ -15,6 +15,18 @@ def print_metadata(input_dataset: gdal.Dataset):
     pprint.pprint("======================= END OF METADATA PRINT =======================")
 
 
+def get_subdataset_name(input_dataset: gdal.Dataset, resolution: str) -> gdal.Dataset:
+    subdatasets = input_dataset.GetSubDatasets()
+    if subdatasets is None:
+        raise RuntimeError(
+            f"Could not get subdatasets for the resolution: {resolution}"
+        )
+    # Last two subdatasets are preview images, so we skip them.
+    for subdataset in subdatasets[:-2]:
+        if resolution in subdataset[1]:
+            return subdataset[0]
+
+
 def process_satellite_image():
     cwd = pathlib.Path(__file__).parent
     output_dir = cwd / config.OUTPUT_DIR
