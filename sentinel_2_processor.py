@@ -1,10 +1,20 @@
+from dataclasses import dataclass
 import pathlib
 import pprint
 
+import numpy as np
 from osgeo import gdal
 
 import config
 import file_io
+
+
+@dataclass(frozen=True)
+class Bands:
+    blue: np.ndarray
+    green: np.ndarray
+    red: np.ndarray
+    nir: np.ndarray
 
 
 def print_metadata(input_dataset: gdal.Dataset):
