@@ -21,6 +21,7 @@ def process_satellite_image():
     input_dataset = file_io.read_dataset(cwd / config.INPUT_IMAGE)
     print_metadata(input_dataset)
     roi_geom = file_io.read_geojson(cwd / config.TEST_ROI_GEOJSON, config.DATASET_SRS)
+    roi_extent = roi_geom.bounds.iloc[0].values.tolist()
 
 
 if __name__ == "__main__":
