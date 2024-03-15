@@ -20,6 +20,7 @@ def process_satellite_image():
     output_dir = cwd / config.OUTPUT_DIR
     input_dataset = file_io.read_dataset(cwd / config.INPUT_IMAGE)
     print_metadata(input_dataset)
+    roi_geom = file_io.read_geojson(cwd / config.TEST_ROI_GEOJSON, config.DATASET_SRS)
 
 
 if __name__ == "__main__":
