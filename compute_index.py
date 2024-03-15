@@ -13,17 +13,17 @@ def compute_index(band_1: np.ndarray, band_2: np.ndarray, no_data: float) -> np.
 
 
 def compute_ndvi(bands: Bands, no_data: float) -> np.ndarray:
-    # Formula: NDVI = (NIR - Red) / (NIR + Red)
+    # Equation: (NIR - RED) / (NIR + RED)
     return compute_index(bands.nir, bands.red, no_data)
 
 
 def compute_ndwi(bands: Bands, no_data: float) -> np.ndarray:
-    # Formula: NDWI = (Green - NIR) / (Green + NIR)
+    # Equation: (GREEN - NIR) / (GREEN + NIR)
     return compute_index(bands.green, bands.nir, no_data)
 
 
 def compute_evi(bands: Bands, no_data: float) -> np.ndarray:
-    # Formula: EVI = 2.5 * (NIR - Red) / (NIR + 6 * Red - 7.5 * Blue + 1)
+    # Equation: 2.5 * ((NIR - RED) / (NIR + 6 * RED - 7.5 * BLUE + 1))
     # Convert band to float so that floating point math is used.
     red_band = bands.red.astype(np.float64)
     denominator = bands.nir + 6 * red_band - 7.5 * bands.blue + 1
