@@ -61,6 +61,25 @@ def get_bands(input_dataset: gdal.Dataset) -> Bands:
     return Bands(*bands)
 
 
+def compute_indices(
+    input_dataset: gdal.Dataset, output_dir: pathlib.Path
+) -> typing.List[pathlib.Path]:
+    output_files = []
+    bands = get_bands(input_dataset)
+    index_computations = {
+        config.Index.NDVI: index.compute_ndvi(bands, config.NO_DATA),
+        config.Index.NDWI: index.compute_ndwi(bands, config.NO_DATA),
+        config.Index.EVI: index.compute_evi(bands, config.NO_DATA),
+    }
+    for index_name, data in index_computations.items():
+        output_file = output_dir / config.INDEX_OUTPUT_FILES[index_name]
+        file_io.write_dataset(
+            input_dataset, output_file, data, gdal.GDT_Float32, config.NO_DATA
+        )
+        output_files.append(output_file)
+    return output_files
+
+
 def process_satellite_image():
     cwd = pathlib.Path(__file__).parent
     output_dir = cwd / config.OUTPUT_DIR
@@ -71,6 +90,7 @@ def process_satellite_image():
     sub_dataset_name = get_subdataset_name(input_dataset, config.SUBDATASET_RESOLUTION)
     test_roi_file = crop_dataset(sub_dataset_name, config.TEST_ROI_FILE, roi_extent)
     test_roi_dataset = file_io.read_dataset(test_roi_file)
+    indices_files = compute_indices(test_roi_dataset, output_dir)
 
 
 if __name__ == "__main__":
