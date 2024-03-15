@@ -10,6 +10,15 @@ class DatabaseManager:
         )
         self.cur = self.conn.cursor()
 
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        if exc_type is not None:
+            print(f"Exception has been caught. {exc_type}, {exc_val}, {exc_tb}")
+        self.cur.close()
+        self.conn.close()
+
     def create_table(self):
         try:
             self.cur.execute(config.CREATE_TABLE)
