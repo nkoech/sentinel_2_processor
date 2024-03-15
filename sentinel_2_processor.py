@@ -7,6 +7,7 @@ import numpy as np
 from osgeo import gdal
 import rasterstats
 
+import database_manager as db_manager
 import config
 import file_io
 import compute_index as index
@@ -93,6 +94,13 @@ def compute_zonal_statistics(
     return zonal_stats
 
 
+def db_insert_values(values: typing.List[typing.List[typing.Dict[str, float]]]):
+    with db_manager.DatabaseManager(**config.DB_CONN_PARAMS) as db:
+        db.create_table()
+        for value in values:
+            db.insert_values(value)
+
+
 def process_satellite_image():
     cwd = pathlib.Path(__file__).parent
     output_dir = cwd / config.OUTPUT_DIR
@@ -105,6 +113,7 @@ def process_satellite_image():
     test_roi_dataset = file_io.read_dataset(test_roi_file)
     indices_files = compute_indices(test_roi_dataset, output_dir)
     zone_stats = compute_zonal_statistics(indices_files, roi_geom)
+    db_insert_values(zone_stats)
 
 
 if __name__ == "__main__":
