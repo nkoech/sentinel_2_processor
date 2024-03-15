@@ -49,6 +49,16 @@ def crop_dataset(
     return output_file
 
 
+def get_bands(input_dataset: gdal.Dataset) -> Bands:
+    bands = []
+    for i in range(1, input_dataset.RasterCount + 1):
+        band = input_dataset.GetRasterBand(i)
+        if band is None:
+            raise RuntimeError(f"Could not open band {i}")
+        bands.append(band.ReadAsArray())
+    return Bands(*bands)
+
+
 def process_satellite_image():
     cwd = pathlib.Path(__file__).parent
     output_dir = cwd / config.OUTPUT_DIR
