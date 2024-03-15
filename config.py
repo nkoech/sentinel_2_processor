@@ -22,3 +22,4 @@ INDEX_OUTPUT_FILES = {
     Index.EVI: "evi.tif",
 }
 GDAL_DRIVER_NAME = "GTiff"
+ZONAL_STATISTICS = ["min", "max", "mean", "median", "std"]
