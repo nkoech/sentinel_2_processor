@@ -27,6 +27,18 @@ def get_subdataset_name(input_dataset: gdal.Dataset, resolution: str) -> gdal.Da
             return subdataset[0]
 
 
+def crop_dataset(
+    input_file: pathlib.Path, output_file: pathlib.Path, roi_extent: typing.Tuple[float]
+) -> pathlib.Path:
+    gdal.Translate(
+        str(output_file),
+        str(input_file),
+        projWin=[roi_extent[0], roi_extent[3], roi_extent[2], roi_extent[1]],
+        metadataOptions=[config.TEST_ROI_METADATA],
+    )
+    return output_file
+
+
 def process_satellite_image():
     cwd = pathlib.Path(__file__).parent
     output_dir = cwd / config.OUTPUT_DIR
