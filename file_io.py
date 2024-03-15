@@ -1,5 +1,6 @@
 import pathlib
 
+import geopandas as gpd
 from osgeo import gdal
 
 
