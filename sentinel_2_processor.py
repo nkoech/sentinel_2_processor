@@ -1,12 +1,14 @@
 from dataclasses import dataclass
 import pathlib
 import pprint
+import typing
 
 import numpy as np
 from osgeo import gdal
 
 import config
 import file_io
+import compute_index as index
 
 
 @dataclass(frozen=True)
