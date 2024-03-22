@@ -1,7 +1,7 @@
 # Seninel-2 Data Processor
 
 
-This is a simple tool to process Sentinel-2 data. It is designed to be used in a Jupyter Notebook. It is based on the [Sentinel-2 L2A](https://dataspace.copernicus.eu/) dataset available on Copernicus Dataspace. The tool follows the following workflow:
+This is a simple tool to process Sentinel-2 data. It is based on the [Sentinel-2 L2A](https://dataspace.copernicus.eu/) dataset available on Copernicus Dataspace. The tool follows the following workflow:
 
 1. Read the Sentinel-2 L2A and region of interest data from local the directory.
 2. Get the required Sentinel-2 10m bands.
